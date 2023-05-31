@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('maps', function (Blueprint $table) {
             $table->id();
+            $table->integer('game')->references('id')->on('game');
+            $table->string('name');
+            $table->json('coords');
+            $table->integer('zoom');
             $table->timestamps();
         });
     }
