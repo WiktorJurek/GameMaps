@@ -13,6 +13,12 @@ class GamesSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Game::truncate();
+
+        $gameData = [
+            'name' => 'nfs-underground-2'
+        ];
+
+        Game::insert($gameData);
     }
 }

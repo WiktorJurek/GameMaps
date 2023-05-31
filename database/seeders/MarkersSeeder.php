@@ -13,6 +13,28 @@ class MarkersSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Marker::truncate();
+
+        $json = file_get_contents("database/json/nfs-underground-2.json");
+
+        $markers = json_decode($json);
+        $markersData = [];
+
+        foreach ($markers as $place => $object) {
+            foreach ($object as $key => $coords) {
+                foreach ($coords as $coordsKey => $values) {
+
+                    foreach ($values as $valuesKey => $coordsValues) {
+                        $markersData[] = [
+                            "game" => 1,
+                            "type" => $place,
+                            "coords" => json_encode($coordsValues)
+                        ];
+                    }
+                }
+            }
+        }
+
+        Marker::insert($markersData);
     }
 }
