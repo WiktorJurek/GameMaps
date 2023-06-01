@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/map', function () {
-    return view('map');
-});
+Route::get('/{pathMatch}', function(){
+    return view('home');
+})->where('pathMatch',".*");

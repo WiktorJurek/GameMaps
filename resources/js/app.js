@@ -1,4 +1,5 @@
-import { createApp } from "vue";
-import Map from "./Map.vue";
+import { createApp } from 'vue';
+import App from './components/App.vue';
+import router from './router';
 
-createApp(Map).mount("#map");
+createApp(App).use(router).mount('#app');

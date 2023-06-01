@@ -15,7 +15,6 @@
         </style>
     </head>
     <body>
-        <div id="map">
-        </div>
+        <div id="app"></div>
     </body>
 </html>
