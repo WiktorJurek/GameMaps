@@ -13,4 +13,12 @@ class GameController extends Controller
     {
         return Game::all();
     }
+    public function show($id) 
+    {
+        return Game::where('id',$id)->get();
+    }
+    public function getByName($name) 
+    {
+        return Game::where('name',$name)->get();
+    }
 }

@@ -15,7 +15,7 @@ const routes = [
         component: Games
     },
     {
-        path: '/map',
+        path: '/map/:gameName',
         component: Map
     },
     {

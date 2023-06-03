@@ -25,4 +25,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::apiResource('markers', MarkerController::class);
     Route::apiResource('maps', MapController::class);
     Route::apiResource('games', GameController::class);
+    Route::get('games/getbyname/{name}',[GameController::class,'getByName']);
+    Route::get('maps/getbyname/{name}',[MapController::class,'getByName']);
+    Route::get('maps/getbygame/{game}',[MapController::class,'getByGame']);
+    Route::get('markers/getbygame/{game}',[MarkerController::class,'getByGame']);
 });

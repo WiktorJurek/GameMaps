@@ -12,4 +12,15 @@ class MarkerController extends Controller
     {
         return Marker::all();
     }
+
+    public function getByGame($gameId) 
+    {    
+        $markers = Marker::where('game',$gameId)->get();
+
+        foreach ($markers as $key => &$marker) {
+            $marker['coords'] = json_decode($marker['coords']);
+        }
+        
+        return $markers;
+    }
 }
