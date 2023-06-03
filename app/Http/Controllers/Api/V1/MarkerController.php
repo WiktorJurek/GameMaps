@@ -15,11 +15,8 @@ class MarkerController extends Controller
 
     public function getByGame($gameId) 
     {    
-        $markers = Marker::where('game',$gameId)->get();
+        $markers = Marker::transformForLayers($gameId);
 
-        foreach ($markers as $key => &$marker) {
-            $marker['coords'] = json_decode($marker['coords']);
-        }
         
         return $markers;
     }
