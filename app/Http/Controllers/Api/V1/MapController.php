@@ -19,7 +19,7 @@ class MapController extends Controller
     }
     public function getByName($name)
     {
-        return Map::where('name',$name)->get();
+        return Map::getMapDataByName($name);
     }
     public function getByGame($gameId)
     {
