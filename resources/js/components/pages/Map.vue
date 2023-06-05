@@ -1,33 +1,26 @@
 <template>
-    <div v-if="dataLoaded">
-      <div v-for="map in mapData" :key="map.id">
-        {{ map.coords }}
-      </div>
-      <h1>{{ gameData[0].name }} map {{ mapData[0].name }}</h1>
+    <div v-if="dataLoaded">  
       
       <div style="height:900px;">
-        <l-map ref="map" v-model:zoom="zoom" :center="[-62.95,-118]" :use-global-leaflet="false" :options="{attributionControl: false}" :min-zoom="2" :max-zoom="4">
+        <l-map ref="map" v-model:zoom="zoom" :center="mapData[0].coords.center" :use-global-leaflet="false" :options="{attributionControl: false}" :min-zoom="2" :max-zoom="mapData[0].zoom">
           <l-tile-layer
             :url="mapName"
             layer-type="base"
-            name="bayview"
+            :name="mapData[0].name"
             :tms="true"
             :no-wrap="true"
           ></l-tile-layer>
 
           <l-layer-group v-for="(markerGroup, groupName) in markersData" :key="groupName">
             <l-marker v-for="marker in markerGroup" :key="marker.id" :lat-lng="marker.coords">
-              <l-icon :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].name}/${groupName}.png`"></l-icon>
+              <l-icon v-if="groupName == 'bayview_bank' || groupName == 'bayview_info'" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].name}/${groupName}.png`"></l-icon>
+              <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].name}/${groupName}.png`"></l-icon>
             </l-marker>
           </l-layer-group>
 
         </l-map>
       </div>
-      <div>
-      <ul>
-        <li v-for="marker in markersData" :key="marker.id">{{ marker.type + marker.coords }}</li>
-      </ul>
-    </div>
+
   </div>
 </template>
   
@@ -46,7 +39,7 @@
     },
     data() {
       return {
-        zoom: 4,
+        zoom: 3,
         gameData: null,
         mapData: null,
         mapName: null,
@@ -70,12 +63,12 @@
 
           const getMap = await axios.get(`/api/v1/maps/getbygame/${getGame.data[0].id}`);
           this.mapName = `../assets/images/maps/${getMap.data[0].name}/{z}/{x}/{y}.png`;
+          getMap.data[0].coords = JSON.parse(getMap.data[0].coords);
           this.mapData = getMap.data;
 
-          const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].game}`);
+          const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].id}`);
           this.markersData = getMarkers.data;
 
-          // console.log(this.mapData);
           this.dataLoaded = true;
         } catch (error) {
           console.error(error);
