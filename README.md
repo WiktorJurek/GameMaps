@@ -8,6 +8,7 @@ Currently the project includes one map from NFS Underground 2.
     <li>PHP 8.2 + Laravel 10</li>
     <li>MySQL</li>
     <li>Vue.js</li>
+    <li>Leaflet</li>
     <li>Tailwind CSS</li>
     <li>Docker</li>
 </ul>
