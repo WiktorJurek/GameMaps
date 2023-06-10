@@ -8,10 +8,22 @@ import notFound from '../components/NotFound.vue';
 const routes = [
     {
         path: '/',
+        name: 'Home',
         component: Home
     },
     {
+        path: '/login',
+        name: 'Login',
+        component: () => import("../components/pages/Login.vue")
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: () => import("../components/pages/Register.vue")
+    },
+    {
         path: '/games',
+        name: 'Games',
         component: Games
     },
     {
