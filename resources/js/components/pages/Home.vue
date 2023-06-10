@@ -1,18 +1,22 @@
 <template>
-<h1>Welcome, {{ user?.name }}!</h1>
+    <div v-if="authStore.user">
+        <h1>Welcome, {{ authStore.user.name }}!</h1>
+    </div>
+    <div v-else>
+        <h1>Welcome guest!</h1>
+    </div>
 </template>
 
 <script setup>
-import {ref, onMounted } from 'vue';
-import axios from 'axios';
+import { onMounted } from 'vue';
+import { useAuthStore } from '../../stores/auth';
 
-const user = ref();
+const authStore = useAuthStore();
 
 onMounted(async () => {
-    const data = await axios.get('/api/user');
-    user.value = data.data;
-    console.log(user.value);
+    await authStore.getUser();
 })
+
 </script>
 
 <style>

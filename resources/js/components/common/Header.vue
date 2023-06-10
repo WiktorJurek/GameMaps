@@ -2,7 +2,7 @@
     <header class="header">
         <div class="navbar bg-base-100">
             <div class="flex-1">
-                <router-link :to="{name: 'Games'}" class="btn btn-ghost normal-case text-xl">GameMaps</router-link>
+                <router-link :to="{name: 'Games'}" class="btn btn-ghost normal-case text-xl">GameMaps<img src="/assets/icons/logo.png" width="30" height="30"></router-link>
             </div>
             <div class="flex-none">
                 <div class="dropdown dropdown-end">
@@ -17,8 +17,13 @@
                         Profile
                     </a>
                     </li>
-                    <li><router-link :to="{name: 'Login'}">Login</router-link></li>
-                    <li><router-link :to="{name: 'Register'}">Register</router-link></li>
+                    <template v-if="!authStore.user">
+                        <li><router-link :to="{name: 'Login'}">Login</router-link></li>
+                        <li><router-link :to="{name: 'Register'}">Register</router-link></li>
+                    </template>
+                    <template v-else>
+                        <li v-if="authStore.user" @click="authStore.handleLogout"><router-link :to="{name: 'Home'}">Logout</router-link></li>
+                    </template>
                 </ul>
                 </div>
             </div>
@@ -26,8 +31,9 @@
     </header>
 </template>
 
-<script>
-
+<script setup>
+import { useAuthStore } from '../../stores/auth';
+const authStore = useAuthStore();
 </script>
 
 <style>

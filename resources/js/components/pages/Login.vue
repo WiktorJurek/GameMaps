@@ -1,8 +1,8 @@
 <template>
     <div class="relative flex flex-col justify-center h-screen overflow-hidden">
         <div class="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-            <h1 class="text-3xl font-semibold text-center text-purple-700">GameMaps</h1>
-            <form class="space-y-4" @submit.prevent="handleLogin">
+            <h1 class="text-3xl font-semibold text-center text-purple-700">GameMaps<img src="/assets/icons/logo.png" width="50" height="50"></h1>
+            <form class="space-y-4" @submit.prevent="authStore.handleLogin(form)">
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Email</span>
@@ -29,23 +29,14 @@
 <script setup>
 
 import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../stores/auth';
 
-const router = useRouter();
+const authStore = useAuthStore();
 
 const form = ref({
     email: '',
     password: ''
 });
-
-const handleLogin = async () => {
-    await axios.post('/login', {
-        email: form.value.email,
-        password: form.value.password
-    });
-    router.push('/');
-}
 
 </script>
 

@@ -1,32 +1,32 @@
 <template>
     <div class="relative flex flex-col justify-center h-screen overflow-hidden">
         <div class="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-            <h1 class="text-3xl font-semibold text-center text-purple-700">GameMaps</h1>
-            <form class="space-y-4">
+            <h1 class="text-3xl font-semibold text-center text-purple-700">GameMaps<img src="/assets/icons/logo.png" width="50" height="50"></h1>
+            <form class="space-y-4" @submit.prevent="authStore.handleRegister(form)">
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Name</span>
                     </label>
-                    <input type="text" placeholder="Name" class="w-full input input-bordered input-primary" />
+                    <input type="text" placeholder="Name" v-model="form.name" class="w-full input input-bordered input-primary" />
                 </div>
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email Address" class="w-full input input-bordered input-primary" />
+                    <input type="text" placeholder="Email Address" v-model="form.email" class="w-full input input-bordered input-primary" />
                 </div>
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Password</span>
                     </label>
-                    <input type="password" placeholder="Enter Password"
+                    <input type="password" placeholder="Enter Password" v-model="form.password"
                         class="w-full input input-bordered input-primary" />
                 </div>
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Confirm Password</span>
                     </label>
-                    <input type="password" placeholder="Confirm Password"
+                    <input type="password" placeholder="Confirm Password" v-model="form.password_confirmation"
                         class="w-full input input-bordered input-primary" />
                 </div>
                 <div>
@@ -39,7 +39,19 @@
     </div>
 </template>
 
-<script>
+<script setup>
+
+import { ref } from 'vue';
+import { useAuthStore } from '../../stores/auth';
+
+const authStore = useAuthStore();
+
+const form = ref({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+});
 
 </script>
 
