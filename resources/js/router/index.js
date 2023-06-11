@@ -4,6 +4,8 @@ import Games from '../components/pages/Games.vue';
 import Map from '../components/pages/Map.vue';
 import Profile from '../components/pages/Profile.vue';
 import notFound from '../components/NotFound.vue';
+import ForgotPassword from '../components/pages/ForgotPassword.vue';
+import ResetPassword from '../components/pages/ResetPassword.vue';
 
 const routes = [
     {
@@ -33,6 +35,16 @@ const routes = [
     {
         path: '/profile',
         component: Profile
+    },
+    {
+        path: '/forgot-password',
+        name: 'ForgotPassword',
+        component: ForgotPassword
+    },
+    {
+        path: '/password-reset/:token',
+        name: 'ResetPassword',
+        component: ResetPassword
     },
     {
         path: '/:pathMatch(.*)*',

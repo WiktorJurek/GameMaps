@@ -8,12 +8,14 @@
                         <span class="text-base label-text">Name</span>
                     </label>
                     <input type="text" placeholder="Name" v-model="form.name" class="w-full input input-bordered input-primary" />
+                    <div class="p-2"><div class="rounded-md shadow-md bg-error p-2" v-if="authStore.errors.name"><span class="text-primary p-2">{{ authStore.errors.name[0] }}</span></div></div>
                 </div>
                 <div>
                     <label class="label">
                         <span class="text-base label-text">Email</span>
                     </label>
                     <input type="text" placeholder="Email Address" v-model="form.email" class="w-full input input-bordered input-primary" />
+                    <div class="p-2"><div class="rounded-md shadow-md bg-error p-2" v-if="authStore.errors.email"><span class="text-primary p-2">{{ authStore.errors.email[0] }}</span></div></div>
                 </div>
                 <div>
                     <label class="label">
@@ -21,6 +23,7 @@
                     </label>
                     <input type="password" placeholder="Enter Password" v-model="form.password"
                         class="w-full input input-bordered input-primary" />
+                    <div class="p-2"><div class="rounded-md shadow-md bg-error p-2" v-if="authStore.errors.password"><span class="text-primary p-2">{{ authStore.errors.password[0] }}</span></div></div>
                 </div>
                 <div>
                     <label class="label">
@@ -28,6 +31,7 @@
                     </label>
                     <input type="password" placeholder="Confirm Password" v-model="form.password_confirmation"
                         class="w-full input input-bordered input-primary" />
+                    <div class="p-2"><div class="rounded-md shadow-md bg-error p-2" v-if="authStore.errors.password_confirmation"><span class="text-primary p-2">{{ authStore.errors.password_confirmation[0] }}</span></div></div>
                 </div>
                 <div>
                     <button class="btn btn-block btn-primary">Sign Up</button>
