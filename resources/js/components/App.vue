@@ -1,6 +1,6 @@
 <template>
     <header>
-        <header/>
+        <Header/>    
     </header>
 
     <main>
@@ -8,7 +8,7 @@
     </main>
     
     <footer>
-        <footer/>
+        <Footer/>
     </footer>
 </template>
   

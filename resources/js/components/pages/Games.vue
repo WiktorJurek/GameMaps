@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>List of all game maps</h1>
         <ul>
             <li v-for="game in games" :key="game.id">
                 <router-link :to="`map/${game.name}`">{{ game.name }}</router-link>
