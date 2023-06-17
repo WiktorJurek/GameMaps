@@ -11,10 +11,10 @@
             :no-wrap="true"
           ></l-tile-layer>
 
-          <l-layer-group v-for="(markerGroup, groupName) in markersData" :key="groupName">
+          <l-layer-group v-for="(markerGroup, layerId) in markersData" :key="layerId">
             <l-marker v-for="marker in markerGroup" :key="marker.id" :lat-lng="marker.coords">
-              <l-icon v-if="groupName == 'bayview_bank' || groupName == 'bayview_info'" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].name}/${groupName}.png`"></l-icon>
-              <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].name}/${groupName}.png`"></l-icon>
+              <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+              <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
             </l-marker>
           </l-layer-group>
 
@@ -28,7 +28,6 @@
   import axios from 'axios';
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LIcon, LLayerGroup } from "@vue-leaflet/vue-leaflet";
-  import L from "leaflet";
   export default {
     components: {
       LMap,
@@ -44,6 +43,7 @@
         mapData: null,
         mapName: null,
         markersData: null,
+        layersData: null,
         dataLoaded: false
       };
     },
@@ -58,13 +58,16 @@
       async fetchData(gameName) {
 
         try {
-          const getGame = await axios.get(`/api/v1/games/getbyname/${gameName}`);
+          const getGame = await axios.get(`/api/v1/games/getbyslug/${gameName}`);
           this.gameData = getGame.data;
 
           const getMap = await axios.get(`/api/v1/maps/getbygame/${getGame.data[0].id}`);
-          this.mapName = `../assets/images/maps/${getMap.data[0].name}/{z}/{x}/{y}.png`;
+          this.mapName = `../assets/images/maps/${getMap.data[0].slug}/{z}/{x}/{y}.png`;
           getMap.data[0].coords = JSON.parse(getMap.data[0].coords);
           this.mapData = getMap.data;
+
+          const getLayers = await axios.get(`/api/v1/layers/getbygame/${getGame.data[0].id}`);
+          this.layersData = getLayers.data;
 
           const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].id}`);
           this.markersData = getMarkers.data;
