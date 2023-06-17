@@ -17,8 +17,8 @@ class GameController extends Controller
     {
         return Game::where('id',$id)->get();
     }
-    public function getByName($name) 
+    public function getBySlug($slug) 
     {
-        return Game::where('name',$name)->get();
+        return Game::where('slug',$slug)->get();
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('game')->references('id')->on('game');
             $table->string('name');
+            $table->string('slug');
             $table->json('coords');
             $table->integer('zoom');
             $table->timestamps();

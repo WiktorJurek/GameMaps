@@ -9,9 +9,9 @@ class Map extends Model
 {
     use HasFactory;
 
-    public static function getMapDataByName($name) {
+    public static function getMapDataBySlug($slug) {
 
-        $mapData = Map::where('name',$name)->get();
+        $mapData = Map::where('slug',$slug)->get();
 
         foreach($mapData as $key => &$map) {
             $map['coords'] = json_decode($map['coords']);

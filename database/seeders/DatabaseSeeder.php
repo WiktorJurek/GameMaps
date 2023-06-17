@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             GamesSeeder::class,
             MarkersSeeder::class,
             MapsSeeder::class,
+            LayerSeeder::class,
         ]);
     }
 }

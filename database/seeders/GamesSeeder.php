@@ -16,7 +16,8 @@ class GamesSeeder extends Seeder
         Game::truncate();
 
         $gameData = [
-            'name' => 'nfs-underground-2'
+            'name' => 'Need for Speed Underground 2',
+            'slug' => 'nfs-underground-2'
         ];
 
         Game::insert($gameData);

@@ -14,7 +14,7 @@ class Marker extends Model
         $markers = Marker::where('game',$gameId)->get();
 
         return collect($markers)
-            ->groupBy('type')
+            ->groupBy('id_layer')
             ->map(function ($items) {
                 return $items->map(function ($item) {
                     return [
@@ -22,6 +22,6 @@ class Marker extends Model
                         "coords" => json_decode($item["coords"])
                     ];
                 });
-            });      
+            });   
     }
 }
