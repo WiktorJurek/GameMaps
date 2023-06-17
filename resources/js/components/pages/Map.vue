@@ -1,25 +1,40 @@
 <template>
     <div v-if="dataLoaded">  
-      
-      <div style="height:900px;">
-        <l-map ref="map" v-model:zoom="zoom" :center="mapData[0].coords.center" :use-global-leaflet="false" :options="{attributionControl: false}" :min-zoom="2" :max-zoom="mapData[0].zoom">
-          <l-tile-layer
-            :url="mapName"
-            layer-type="base"
-            :name="mapData[0].name"
-            :tms="true"
-            :no-wrap="true"
-          ></l-tile-layer>
+    <div class="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <div style="height:900px;">
+          <l-map ref="map" v-model:zoom="zoom" :center="mapData[0].coords.center" :use-global-leaflet="false" :options="{attributionControl: false}" :min-zoom="2" :max-zoom="mapData[0].zoom">
+            <l-tile-layer
+              :url="mapName"
+              layer-type="base"
+              :name="mapData[0].name"
+              :tms="true"
+              :no-wrap="true"
+            ></l-tile-layer>
 
-          <l-layer-group v-for="(markerGroup, layerId) in markersData" :key="layerId">
-            <l-marker v-for="marker in markerGroup" :key="marker.id" :lat-lng="marker.coords">
-              <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
-              <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
-            </l-marker>
-          </l-layer-group>
-
-        </l-map>
+            <div v-if="showAll">
+              <l-layer-group v-for="(markerGroup, layerId) in markersData" :key="layerId">
+                <div v-if="markerGroup.visible">
+                  <l-marker v-for="(markerData, markerId) in markerGroup" :key="markerData.id" :lat-lng="markerData.coords" >
+                      <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+                      <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+                  </l-marker>
+                </div>
+              </l-layer-group>
+            </div>
+          </l-map>
+        </div>
+        <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
       </div>
+      <div class="drawer-side">
+      <label for="my-drawer-2" class="drawer-overlay"></label> 
+      <ul class="menu p-5 w-60 h-full bg-base-200 text-base-content">
+        <input v-for="(layerData, layerId) in layersData" type="checkbox" v-model="markersData[layerId].visible"  :aria-label="layerData[0].name" class="btn btn-sm my-1" :key="layerId"/>
+        <input type="checkbox" v-model="showAll" aria-label="Show all" class="btn btn-sm my-1"/>
+      </ul>
+    </div>
+    </div>
 
   </div>
 </template>
@@ -28,6 +43,7 @@
   import axios from 'axios';
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LIcon, LLayerGroup } from "@vue-leaflet/vue-leaflet";
+import { marker } from 'leaflet';
   export default {
     components: {
       LMap,
@@ -44,7 +60,8 @@
         mapName: null,
         markersData: null,
         layersData: null,
-        dataLoaded: false
+        dataLoaded: false,
+        showAll: true,
       };
     },
     mounted() {
@@ -72,6 +89,10 @@
           const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].id}`);
           this.markersData = getMarkers.data;
 
+          Object.keys(getMarkers.data).forEach((key) =>{
+            getMarkers.data[key].visible = true;
+          });            
+        
           this.dataLoaded = true;
         } catch (error) {
           console.error(error);

@@ -19,7 +19,8 @@ class Marker extends Model
                 return $items->map(function ($item) {
                     return [
                         "id" => $item["id"],
-                        "coords" => json_decode($item["coords"])
+                        "coords" => json_decode($item["coords"]),
+                        "visible" => true,
                     ];
                 });
             });   
