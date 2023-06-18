@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maps', function (Blueprint $table) {
+        Schema::create('layers', function (Blueprint $table) {
             $table->id();
             $table->integer('game')->references('id')->on('game');
             $table->string('name');
             $table->string('slug');
-            $table->json('coords');
-            $table->integer('zoom');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('maps');
+        Schema::dropIfExists('layers');
     }
 };

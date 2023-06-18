@@ -1,5 +1,5 @@
 {
-    "bayview_garage": [
+    "1": [
       {
         "coords": [
           [
@@ -9,7 +9,7 @@
         ]
       }
     ],
-    "bayview_shop_aftermarket": [
+    "2": [
       {
         "coords": [
           [
@@ -31,7 +31,7 @@
         ]
       }
     ],
-    "bayview_shop_graphics": [
+    "3": [
       {
         "coords": [
           [
@@ -53,7 +53,7 @@
         ]
       }
     ],
-    "bayview_shop_carlot": [
+    "4": [
       {
         "coords": [
           [
@@ -71,7 +71,7 @@
         ]
       }
     ],
-    "bayview_shop_performance": [
+    "5": [
       {
         "coords": [
           [
@@ -97,7 +97,7 @@
         ]
       }
     ],
-    "bayview_shop_body": [
+    "6": [
       {
         "coords": [
           [
@@ -127,7 +127,7 @@
         ]
       }
     ],
-    "bayview_race_drift": [
+    "7": [
       {
         "coords": [
           [
@@ -177,7 +177,7 @@
         ]
       }
     ],
-    "bayview_race_circuit": [
+    "8": [
       {
         "coords": [
           [
@@ -235,7 +235,7 @@
         ]
       }
     ],
-    "bayview_race_streetx": [
+    "9": [
       {
         "coords": [
           [
@@ -293,7 +293,7 @@
         ]
       }
     ],
-    "bayview_race_drag": [
+    "10": [
       {
         "coords": [
           [
@@ -351,7 +351,7 @@
         ]
       }
     ],
-    "bayview_race_sprint": [
+    "11": [
       {
         "coords": [
           [
@@ -401,7 +401,7 @@
         ]
       }
     ],
-    "bayview_info": [
+    "12": [
       {
         "coords": [
           [
@@ -731,7 +731,7 @@
         ]
       }
     ],
-    "bayview_bank": [
+    "13": [
       {
         "coords": [
           [

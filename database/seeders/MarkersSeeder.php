@@ -27,7 +27,7 @@ class MarkersSeeder extends Seeder
                     foreach ($values as $valuesKey => $coordsValues) {
                         $markersData[] = [
                             "game" => 1,
-                            "type" => $place,
+                            "id_layer" => $place,
                             "coords" => json_encode($coordsValues)
                         ];
                     }

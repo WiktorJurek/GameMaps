@@ -14,14 +14,15 @@ class Marker extends Model
         $markers = Marker::where('game',$gameId)->get();
 
         return collect($markers)
-            ->groupBy('type')
+            ->groupBy('id_layer')
             ->map(function ($items) {
                 return $items->map(function ($item) {
                     return [
                         "id" => $item["id"],
-                        "coords" => json_decode($item["coords"])
+                        "coords" => json_decode($item["coords"]),
+                        "visible" => true,
                     ];
                 });
-            });      
+            });   
     }
 }

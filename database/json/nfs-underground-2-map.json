@@ -1,6 +1,7 @@
 {
     "game" : 1,
-    "name" : "bayview",
+    "name" : "Bayview",
+    "slug" : "bayview",
     "zoom" : 4,
     "coords" : [{
         "swest" : [-41.100,-180.000],

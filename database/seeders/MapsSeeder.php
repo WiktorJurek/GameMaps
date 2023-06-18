@@ -21,6 +21,7 @@ class MapsSeeder extends Seeder
         $mapsData[] = [
             'game' => $map->game,
             'name' => $map->name,
+            'slug' => $map->slug,
             'zoom' => $map->zoom,
             'coords' => json_encode($map->coords[0])
         ]; 
