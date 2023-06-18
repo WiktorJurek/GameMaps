@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('markers', function (Blueprint $table) {
             $table->id();
-            $table->integer('game')->references('id')->on('game');
+            $table->integer('game')->references('id')->on('games');
             $table->integer('id_layer')->references('id')->on('layers');
             $table->json('coords');
             $table->timestamps();
