@@ -16,9 +16,13 @@
             <div v-if="showAll">
               <l-layer-group v-for="(markerGroup, layerId) in markersData" :key="layerId">
                 <div v-if="markerGroup.visible">
-                  <l-marker v-for="(markerData, markerId) in markerGroup" :key="markerData.id" :lat-lng="markerData.coords" >
-                      <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
-                      <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+                  <l-marker v-for="(markerData, markerId) in markerGroup" :key="markerData.id" :lat-lng="markerData.coords">
+
+                      <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${markerData.visible}/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+                      <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${markerData.visible}/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
+                      <l-popup>{{ layersData[layerId][0].name }}
+                        <input type="checkbox" v-model="markerData.visible">Mark
+                      </l-popup>
                   </l-marker>
                 </div>
               </l-layer-group>
@@ -42,15 +46,15 @@
   <script lang="ts">
   import axios from 'axios';
   import "leaflet/dist/leaflet.css";
-  import { LMap, LTileLayer, LMarker, LIcon, LLayerGroup } from "@vue-leaflet/vue-leaflet";
-import { marker } from 'leaflet';
+  import { LMap, LTileLayer, LIcon, LMarker, LLayerGroup, LPopup } from "@vue-leaflet/vue-leaflet";
   export default {
     components: {
       LMap,
       LTileLayer,
       LMarker,
       LIcon,
-      LLayerGroup
+      LLayerGroup,
+      LPopup,
     },
     data() {
       return {
@@ -102,4 +106,6 @@ import { marker } from 'leaflet';
   };
   </script>
   
-  <style></style>
+<style>
+
+</style>
