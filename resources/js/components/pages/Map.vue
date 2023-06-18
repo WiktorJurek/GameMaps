@@ -21,7 +21,9 @@
                       <l-icon v-if="layerId == 12 || layerId == 13" :icon-size="[15,15]" :icon-url="`/assets/icons/${markerData.visible}/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
                       <l-icon v-else :icon-size="[30,30]" :icon-url="`/assets/icons/${markerData.visible}/${mapData[0].slug}/${layersData[layerId][0].slug}.png`"></l-icon>
                       <l-popup>{{ layersData[layerId][0].name }}
-                        <input type="checkbox" v-model="markerData.visible">Mark
+                        <div v-if="authStore.user">
+                          <input type="checkbox" v-model="markerData.visible" @change="changeMarkerState(markerData,authStore.user)">Mark
+                        </div>
                       </l-popup>
                   </l-marker>
                 </div>
@@ -42,11 +44,23 @@
 
   </div>
 </template>
-  
+
+  <script setup lang="ts">
+  import { onMounted } from 'vue';
+  import { useAuthStore } from '../../stores/auth';
+
+  const authStore = useAuthStore();
+
+  onMounted(async () => {
+      await authStore.getUser();
+  })
+  </script>  
+
   <script lang="ts">
   import axios from 'axios';
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LIcon, LMarker, LLayerGroup, LPopup } from "@vue-leaflet/vue-leaflet";
+
   export default {
     components: {
       LMap,
@@ -66,15 +80,26 @@
         layersData: null,
         dataLoaded: false,
         showAll: true,
+        authStore: '',
       };
     },
-    mounted() {
-
+    async mounted() {
       const gameName = this.$route.params.gameName;
       this.fetchData(gameName);
-
     },
     methods: {
+
+      async changeMarkerState(marker,authUser) {
+        if(!marker.visible) {
+          await axios.post(`/api/v1/user_markers`, {
+            id_user: authUser.id,
+            id_game: 1,
+            id_marker: marker.id
+          });
+        } else {
+          await axios.delete(`/api/v1/user_markers/${authUser.id}/${marker.id}`);
+        }
+      },
 
       async fetchData(gameName) {
 
@@ -90,9 +115,9 @@
           const getLayers = await axios.get(`/api/v1/layers/getbygame/${getGame.data[0].id}`);
           this.layersData = getLayers.data;
 
-          const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].id}`);
+          const getMarkers = await axios.get(`/api/v1/markers/getbygame/${getGame.data[0].id}/2`);
           this.markersData = getMarkers.data;
-
+          console.log(getMarkers.data);
           Object.keys(getMarkers.data).forEach((key) =>{
             getMarkers.data[key].visible = true;
           });            
@@ -105,7 +130,6 @@
     },
   };
   </script>
-  
 <style>
 
 </style>

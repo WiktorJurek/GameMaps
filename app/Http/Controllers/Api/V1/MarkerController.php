@@ -13,9 +13,9 @@ class MarkerController extends Controller
         return Marker::all();
     }
 
-    public function getByGame($gameId) 
+    public function getByGame($gameId,$userId) 
     {    
-        $markers = Marker::transformForLayers($gameId);
+        $markers = Marker::transformForLayers($gameId,$userId);
 
         
         return $markers;
