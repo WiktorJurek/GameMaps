@@ -23,7 +23,7 @@
                       <l-popup>{{ layersData[layerId][0].name }}
                         <input type="checkbox" v-model="markerData.visible">Mark
                       </l-popup>
-                  </l-marker>
+                  </l-marker> 
                 </div>
               </l-layer-group>
             </div>
